@@ -21,9 +21,7 @@ export class FirebaseService {
     private firebaseInstance: firebase.app.App;
 
     constructor() {
-      if (!this.firebaseInstance) {
         this.firebaseInstance = firebase.initializeApp(FirebaseConfig);
-      }
     }
 
     public listenToDatabase(ref: string, callback: Function) {

@@ -23,7 +23,8 @@ class App extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-   
+    this.firebaseService = new FirebaseService();
+
     this.state = {
       secondFloorData: [],
       firstFloorData: [],
@@ -34,29 +35,19 @@ class App extends Component<Props, State> {
     };
   }
 
-  componentWillMount() {
-    console.log('componentWillMount', this.firebaseService);
-
-    if (!this.firebaseService) {
-      this.firebaseService = new FirebaseService();
-    }
-
+  componentDidMount() {
     this.firebaseService.listenToDatabase('home/temp', this.updateSecondFloorData);
     this.firebaseService.listenToDatabase('home/temp_first_floor', this.updateFirstdloorData);
-  }
-  componentDidMount() {
     this.interval = setInterval(this.updateLastRead, 3000);
   }
 
   updateSecondFloorData = (data: TemperatureRead[]): void => {
-    console.log('updateSecondFloorData');
     this.setState({
       secondFloorData: data
     }, this.updateLastRead);
   }
 
   updateFirstdloorData = (data: TemperatureRead[]): void => {
-    console.log('updateFirstdloorData');
     this.setState({
       firstFloorData: data
     }, this.updateLastRead);
