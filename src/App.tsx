@@ -30,7 +30,6 @@ interface State {
 }
 
 
-
 class App extends Component<Props, State> {
 
   private interval: NodeJS.Timer;
